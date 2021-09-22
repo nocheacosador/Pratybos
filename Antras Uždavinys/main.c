@@ -14,6 +14,11 @@
  *    yi - neneigiami sekos nariai, einantys iš eilės,
  *    p = min(n, t), kur n - neigiamų sekos narių skaičius, 
  *    o t - neneigiamų sekos narių skaičius.
+ * 
+ *  Refleksija:
+ *    Užduotis nebuvo persunki, veikiantį variantą turėjau per 30 min
+ *    nuo užduoties darymo pradžios, bet vėliau dar kiek užtrukau
+ *    perdarinėdamas skaičių įvesties mechanizmą.
  */
 
 #include <stdio.h>
