@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 //#define MIN(a, b)	(((a) < (b)) ? (a) : (b))						// universal, works for double, float, int, char, etc.
 																	// tho allows to compare different types with each other
@@ -32,6 +33,7 @@ static inline int Min(const int a, const int b)						// this is typesafe, tho no
 static inline int GetNumber(const char* prompt)
 {
 	int num = 0;
+	char buf[32];
 
 	while (true)
 	{
@@ -44,10 +46,13 @@ static inline int GetNumber(const char* prompt)
 	#pragma GCC diagnostic pop										// restore diagnostic state
 #endif
 
-		if (!scanf("%d", &num))
+		if (!fgets(buf, 32, stdin))
+			continue;
+
+		num = atoi(buf);
+
+		if (num == 0 & strcmp(buf, "0") != 0)
 		{
-			char ch;
-			do ch = getchar(); while (ch != '\n' && ch != EOF);		// empty stdin buffer
 			puts("It is not a whole number!");
 		}
 		else
@@ -57,7 +62,8 @@ static inline int GetNumber(const char* prompt)
 
 static inline int GetNaturalNumber(const char* prompt)
 {
-	int num = 0;
+	int  num = 0;
+	char buf[32] = { '\0' };
 
 	while (true)
 	{
@@ -70,10 +76,13 @@ static inline int GetNaturalNumber(const char* prompt)
 	#pragma GCC diagnostic pop										// restore diagnostic state
 #endif
 
-		if (!scanf("%d", &num))
+		if (!fgets(buf, 32, stdin))
+			continue;
+
+		num = atoi(buf);
+
+		if (num == 0 & strcmp(buf, "0") != 0)
 		{
-			char ch;
-			do ch = getchar(); while (ch != '\n' && ch != EOF);		// empty stdin buffer
 			puts("It is not a whole number!");
 		}
 		else if (num > 0)
@@ -109,8 +118,8 @@ int main(int argc, char* argv[])
 
 	int p = Min(NumberCount - NegativeNumberCount, NegativeNumberCount);
 
-	int NegativeNumberIndex = 0;
 	int PositiveNumberIndex = 0;
+	int NegativeNumberIndex = 0;
 	int Sum = 0;
 
 	for (int i = 0; i < p; i++)
