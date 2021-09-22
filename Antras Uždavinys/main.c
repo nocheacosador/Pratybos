@@ -122,16 +122,21 @@ int main(int argc, char* argv[])
 	int NegativeNumberIndex = 0;
 	int Sum = 0;
 
+	printf("Answer: ");
+
 	for (int i = 0; i < p; i++)
 	{
-		while (Arr[PositiveNumberIndex] >= 0) PositiveNumberIndex++;
-		while (Arr[NegativeNumberIndex] <  0) NegativeNumberIndex++;
+		while (Arr[PositiveNumberIndex] <  0) PositiveNumberIndex++;
+		while (Arr[NegativeNumberIndex] >= 0) NegativeNumberIndex++;
 
+		if (i == 0)	printf("%d * %d",    Arr[PositiveNumberIndex], Arr[NegativeNumberIndex]);
+		else 		printf(" + %d * %d", Arr[PositiveNumberIndex], Arr[NegativeNumberIndex]);
+		
 		Sum += Arr[PositiveNumberIndex] * Arr[NegativeNumberIndex];
 
 		PositiveNumberIndex++;
 		NegativeNumberIndex++;
 	}
 
-	printf("Sum: %d\n", Sum);
+	printf(" = %d\n", Sum);
 }
