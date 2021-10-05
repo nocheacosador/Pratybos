@@ -135,20 +135,51 @@ void reverseLineWordOrder(char* line)
     *lineWritePtr = '\0';
 }
 
+void helpMessage()
+{
+    puts("Usage:\n"
+         "    yoda-transform               - filenames will have to be entered later\n"
+         "    yoda-transform <input-file> <output-file>\n"
+         "                                 - filenames are entered explicitly\n"
+         "    yoda-transform [-h/--help]   - displays this message\n");
+}
+
 int main(int argc, char* argv[])
 {
     char inputFileName[256];    // file name length limit on linux and windows is 255
     char outFileName[256];      
 
-    printf("Enter input file (max 255 chararcters): \n"
-           " > ");
-    fgets(inputFileName, 256, stdin);
-    removeNewline(inputFileName);
+    if (argc > 1)
+    {
+        if (argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")))
+        {
+            helpMessage();
+            exit(EXIT_SUCCESS);
+        }
+        else if (argc == 3)
+        {
+            strcpy(inputFileName, argv[1]);
+            strcpy(outFileName,   argv[2]);
+        }
+        else
+        {
+            puts("Error: invalid number of positional arguments");
+            helpMessage();
+            exit(EXIT_FAILURE);
+        }
+    }
+    else
+    { 
+        printf("Enter input file (max 255 chararcters): \n"
+               " > ");
+        fgets(inputFileName, 256, stdin);
+        removeNewline(inputFileName);
 
-    printf("Enter output file (max 255 chararcters, cannot be the same as input file): \n"
-           " > ");
-    fgets(outFileName, 256, stdin);
-    removeNewline(outFileName);
+        printf("Enter output file (max 255 chararcters, cannot be the same as input file): \n"
+               " > ");
+        fgets(outFileName, 256, stdin);
+        removeNewline(outFileName);
+    }
 
     if (!strcmp(inputFileName, outFileName))
     {
