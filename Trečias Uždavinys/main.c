@@ -56,10 +56,10 @@ int removeNewline(char* str)
 {
     while (*str != '\n')
     {
-        str++;
         if (*str == '\0')
             return 0;
-    } 
+        str++;
+    }
 
     *str = '\0';
     return 1;
