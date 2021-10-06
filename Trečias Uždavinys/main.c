@@ -3,7 +3,12 @@
  *  lukas.zajonckovskis@mif.stud.vu.lt
  *  Studento pažymejmo Nr. 2110647
  *  Užduotis Nr. 3, 6 variantas
- *
+ *  
+ *  Užduotis:
+ *      Parašyti funkciją, kuri duoto teksto kiekvienos eilutės žodžius 
+ *      perrašo atvirkščia tvarka (simbolių tvarka žodyje nesikeičia, bet 
+ *      keičiasi žodžių tvarka; tarpų skaičius turi likti nepakitęs).
+ * 
  *  Refleksija:
  *      Užduotis užrtuko beveik tiek kiek ir planavau, apie 2 val. Bedarant 
  *      užduotį didesnių sunkumų nekilo, vienintelės vietos kur užtrukau 
@@ -79,18 +84,21 @@ void reverseLineWordOrder(char* line)
     StackNode* topOfStack = NULL;
 
     do {
-        while ( *lineReadPtr == ' ' && *lineReadPtr != '\n' &&
-                *lineReadPtr != '\0' && lineReadPtr - line != 255) lineReadPtr++;
-
         const char* wordStartPtr = lineReadPtr;
-        size_t wordSize = 0;
+
+        while ( *lineReadPtr == ' ' && *lineReadPtr != '\n' &&
+                *lineReadPtr != '\0' && lineReadPtr - line != 255)
+        {
+            lineReadPtr++;
+        }
 
         while ( *lineReadPtr != ' ' && *lineReadPtr != '\n' && 
                 *lineReadPtr != '\0' && lineReadPtr - line != 255) 
         {
-            wordSize++;
             lineReadPtr++;
         }
+
+        size_t wordSize = (size_t)(lineReadPtr - wordStartPtr);
 
         if (wordSize)
         {
@@ -126,8 +134,6 @@ void reverseLineWordOrder(char* line)
     {
         memcpy(lineWritePtr, topOfStack->string, topOfStack->stringSize);
         lineWritePtr += topOfStack->stringSize;
-        *lineWritePtr = ' ';
-        lineWritePtr++;
 
         StackNode* nodeToFree = topOfStack;
         topOfStack = topOfStack->prev;
