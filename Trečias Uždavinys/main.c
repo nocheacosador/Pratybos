@@ -11,7 +11,8 @@
  *      panaudoti gets_s funkciją, bet gcc nepateikia jos implementacijos 
  *      standartinėj bibliotekoj.
  */
-
+#define __USE_GNU
+#define __USE_EXTERN_INLINES
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -78,12 +79,14 @@ void reverseLineWordOrder(char* line)
     StackNode* topOfStack = NULL;
 
     do {
-        while (*lineReadPtr == ' ' && *lineReadPtr != '\0') lineReadPtr++;
+        while ( *lineReadPtr == ' ' && *lineReadPtr != '\n' &&
+                *lineReadPtr != '\0' && lineReadPtr - line != 255) lineReadPtr++;
 
         const char* wordStartPtr = lineReadPtr;
         size_t wordSize = 0;
 
-        while (*lineReadPtr != ' ' && *lineReadPtr != '\0') 
+        while ( *lineReadPtr != ' ' && *lineReadPtr != '\n' && 
+                *lineReadPtr != '\0' && lineReadPtr - line != 255) 
         {
             wordSize++;
             lineReadPtr++;
@@ -115,7 +118,7 @@ void reverseLineWordOrder(char* line)
 
             topOfStack = node;
         }
-    } while (*lineReadPtr != '\0');
+    } while (*lineReadPtr != '\0' && *lineReadPtr != '\n' && lineReadPtr - line != 255);
 
     char* lineWritePtr = line;
 
@@ -209,27 +212,20 @@ int main(int argc, char* argv[])
            "Writting to '%s'...\n", 
            inputFileName, outFileName);
 
+    size_t bufSize = 256;
+    char*  buf     = (char*)Malloc(bufSize);
+    
     while (!feof(inFile))
     {
-        char buf[256];
-        buf[255] = '\0';
-        
-        if (fgets(buf, 256, inFile) == NULL)
+        if (getline(&buf, &bufSize, inFile) == -1)
         {
             perror("Error occured while reading file");
             
+            Free(buf);
             fclose(inFile);
             fclose(outFile);
             
             exit(EXIT_FAILURE);
-        }
-
-        if (!removeNewline(buf))
-        {
-            char c;
-            do {
-                c = fgetc(inFile);
-            } while (c != '\n' && c != '\0' && !feof(inFile));
         }
 
         reverseLineWordOrder(buf);
@@ -238,6 +234,7 @@ int main(int argc, char* argv[])
             perror("Error occured while writing to file");
     }
 
+    Free(buf);
     fclose(inFile);
     fclose(outFile);
 

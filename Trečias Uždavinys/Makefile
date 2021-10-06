@@ -1,4 +1,4 @@
-CCFLAGS = -std=c11
+CCFLAGS = -std=gnu11
 CC = gcc $(CCFLAGS)
 
 all: build
