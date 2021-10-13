@@ -40,7 +40,7 @@ struct Node
 {
     int data;
     struct Node* next;
-}
+};
 ```
 
 #### __Enumeratoriai__
@@ -53,7 +53,7 @@ enum SomeEnumerator
     FIRST_VALUE, 
     SECOND_VALUE,
     THIRD_VALUE
-}
+};
 ```
 
 #### __Metodai__
@@ -72,7 +72,7 @@ struct Node
 {
     int data;
     struct Node* next;
-}
+};
 
 void Node_InsertBefore(struct Node** node, int data);
 ```
@@ -89,7 +89,7 @@ simboliai turibūti sulygiuoti dešinėje pusėje.
 #define	MACRO(v, w, x, y)       do {                \
                                     v = (x) + (y);  \
                                     w = (y) + 2;    \
-                                } while (0)
+                                } while (0);
 ```
 
 #### __Rodyklės__
