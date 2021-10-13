@@ -164,7 +164,6 @@ int ShouldQuit()
     return s_ShouldQuit;
 }
 
-// commands
 static void Help(int argc, char* argv[])
 {
     if (argc == 1)
