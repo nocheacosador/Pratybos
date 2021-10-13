@@ -3,7 +3,7 @@
 #include "StringList.h"
 #include <string.h>
 
-int main()
+void TestCase1()
 {
     SList list = SList_Init();
     SList_EmplaceBack(&list, "text1");
@@ -18,4 +18,9 @@ int main()
     assert(list.begin->next == list.end);
     assert(!strcmp(list.begin->str, "text1"));
     assert(!strcmp(list.end->str, "text2"));
+}
+
+int main()
+{
+    TestCase1();
 }
