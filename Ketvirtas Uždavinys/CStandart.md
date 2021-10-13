@@ -123,7 +123,7 @@ void PrintArray(const int* arr, int arrSize);
 }
 ```
 
-> Skliaustai nėra būtini kai reiškinys užima viena eilutę.
+> Skliaustai nėra būtini kai reiškinys užima tik vieną eilutę.
 
 #### __Sklaiustai po raktinių žožių__
 Tarp raktinių žožių ir skliaustų turi būti tarpas.
